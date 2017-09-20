@@ -20,11 +20,12 @@ class Cold_water():
         # Get data from file.
         with open(self.data_filename) as f:
             for i, line in enumerate(f):
-                if i == self.N-1:
-                    arr = line.split()
+                arr = line.split()
+                if int(arr[0]) == self.N:
                     arr = arr[1:]
                     for j in range(len(arr)):
                         self.y[j] = float(arr[j])
+        print(self.y)
 
     def train(self):
         # Train model.
