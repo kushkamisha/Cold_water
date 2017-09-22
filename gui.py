@@ -1,4 +1,4 @@
-from tkinter import Tk, Button, Entry, Label, messagebox, N, S, E, W
+from tkinter import Tk, Button, Entry, Label, messagebox, N, S, E, W, StringVar
 from tkinter.ttk import Separator, Style
 from cold_water import Cold_water
 
@@ -12,8 +12,8 @@ class GUI():
         self.X = 4
         screen_width = master.winfo_screenwidth()
         screen_height = master.winfo_screenheight()
-        app_width = 270
-        app_height = 175
+        app_width = 283
+        app_height = 230
 
         master.title('Витрата води')
         x = screen_width / 2 - app_width / 2
@@ -30,20 +30,23 @@ class GUI():
         )
         self.label0.grid(row=0, column=0, columnspan=3)
 
+        # Horisontal line.
         sep = Separator(master, orient="horizontal")
         sep.grid(row=1, column=0, columnspan=3, padx=8, pady=10, sticky="EW")
-
         sty = Style(master)
         sty.configure("TSeparator", background="black")
 
         self.label1 = Label(master, text='Кількість приладів, шт')
         self.label1.grid(row=2, column=0, columnspan=2, sticky=W, padx=5)
-        self.entry0 = Entry(master, width=4)
+        self.entry0 = Entry(master, width=6)
         self.entry0.grid(row=2, column=2, padx=8)
 
         self.label2 = Label(master, text='Середньодобова витрата води, л/добу')
         self.label2.grid(row=3, column=0, columnspan=2, sticky=W, padx=5)
-        self.entry1 = Entry(master, width=4)
+
+        sv = StringVar()
+        sv.trace("w", lambda name, index, mode, sv=sv: self.callback(sv))
+        self.entry1 = Entry(master, width=6, textvariable=sv)
         self.entry1.grid(row=3, column=2, padx=8)
 
         self.label3 = Label(master, text='Секундна витрата води, л/сек')
@@ -57,6 +60,20 @@ class GUI():
         )
         self.result.grid(row=5, column=0, columnspan=3)
 
+        # Horisontal line.
+        sep = Separator(master, orient="horizontal")
+        sep.grid(row=6, column=0, columnspan=3, padx=8, pady=10, sticky="EW")
+        sty = Style(master)
+        sty.configure("TSeparator", background="black")
+
+        # Copyright.
+        Label(master,
+              text = "Copyright © 2017, Kushka Misha,"
+              ).grid(row = 7, column = 0, columnspan = 3, sticky = S)
+        Label(master,
+              text = "All Rights Reserved"
+              ).grid(row = 8, column = 0, columnspan =3, sticky = S)
+
         self.master.bind("<Return>", self.check_input)
         self.master.bind("<Escape>", exit)
 
@@ -64,8 +81,12 @@ class GUI():
         """Calculate the result."""
         my_water = Cold_water(self.N, self.X)
         my_result = my_water.predict()
-        my_water.visualize_function()
         self.label4['text'] = str(round(my_result, 2))
+        my_water.visualize_function()
+
+    def callback(self, sv):
+        c = sv.get()[:6]
+        sv.set(c)
 
     def check_input(self, event=None):
         """Check correctness of the user input."""
