@@ -1,4 +1,5 @@
 from tkinter import Tk, Button, Entry, Label, messagebox
+from cold_water import Cold_water
 
 
 class GUI():
@@ -44,7 +45,10 @@ class GUI():
         self.master.bind("<Escape>", exit)
 
     def get_result(self):
-        pass
+        """Calculate the result."""
+        my_water = Cold_water(self.N, self.X)
+        my_result = my_water.predict()
+        self.label3['text'] = 'Result: ' + str(round(my_result, 2))
 
     def check_input(self, event=None):
         """Check correctness of the user input."""
