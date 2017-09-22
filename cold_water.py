@@ -34,3 +34,18 @@ class Cold_water():
         self.train()
 
         return self.f(self.X)
+
+    def visualize_function(self):
+        # Visualize the result.
+        fx = np.linspace(0, self.x[-1], 1000)
+
+        plt.title('N = {}'.format(self.N))
+        plt.xlabel('Liters per hour')
+        plt.ylabel('Liters per second')
+
+        plt.plot(fx, self.f(fx), linewidth=2, c='b', zorder=1)
+        plt.scatter(self.X, self.f(self.X), s=180, marker='*', c='r', zorder=2)
+        plt.scatter(self.x, self.y, s=30, c='r', zorder=2)
+
+        plt.grid(True, linestyle='-', color='0.75')
+        plt.show()
