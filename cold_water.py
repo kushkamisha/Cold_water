@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 
@@ -8,20 +9,44 @@ class Cold_water():
         self.N = N
         self.X = X
         self.data_filename = data_filename
-        self.y = [0, 0, 0]
         self.f = None
+        self.df = None
         self.x = [4, 6, 8]
+        self.y = []
 
     def get_data(self):
-        # Get data from file.
-        with open(self.data_filename) as f:
-            for i, line in enumerate(f):
-                arr = line.split()
-                if int(arr[0]) == self.N:
-                    arr = arr[1:]
-                    for j in range(len(arr)):
-                        self.y[j] = float(arr[j])
-        print(self.y)
+        """Get data from file."""
+        self.df = pd.read_csv('data.tsv', sep='\t', header=None)
+        # Try to find current value of N in the file.
+        lst = [i for i,x in enumerate(np.array(self.df[0])) if x == self.N]
+        if (lst == []):
+            # Can't find N in the file.
+            self.get_y()
+        else:
+            # N is in the file.
+            print('N is in the file.')
+            self.y = [self.df[i][lst[0]] for i in range(1, self.df.shape[1])]
+
+    def get_y(self):
+        """
+        Find row with N in the table or create
+        this row if can't find.
+        """
+        for num in range(1, self.df.shape[1]):
+            x = self.df[0]
+            yy = self.df[num]
+            i = 1
+            while (i <= (len(x) - 3)):
+                curr_x = x[i:i+3]
+                curr_y = yy[i:i+3]
+
+                fp = np.polyfit(curr_x, curr_y, 2)
+                f = np.poly1d(fp)
+        
+                if (self.N >= min(x[i:i+3]) and self.N <= max(x[i:i+3])):
+                    self.y.append(f(self.N))
+        
+                i += 2
 
     def train(self):
         # Train model.
