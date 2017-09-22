@@ -1,4 +1,4 @@
-import scipy as sp
+import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -14,7 +14,7 @@ class Cold_water():
 
     def error(self, f, x, y):
         # Error of prediction on given points.
-        return sp.sum((self.f(self.x) - self.y)**2)
+        return np.sum((self.f(self.x) - self.y)**2)
 
     def get_data(self):
         # Get data from file.
@@ -29,8 +29,8 @@ class Cold_water():
 
     def train(self):
         # Train model.
-        fp = sp.polyfit(self.x, self.y, 3)
-        self.f = sp.poly1d(fp)
+        fp = np.polyfit(self.x, self.y, 3)
+        self.f = np.poly1d(fp)
         print('Error = {}'.format(self.error(self.f, self.x, self.y)))
 
     def predict(self):
@@ -44,7 +44,7 @@ class Cold_water():
 
     def visualize_function(self):
         # Visualize the result.
-        fx = sp.linspace(0, self.x[-1], 1000)
+        fx = np.linspace(0, self.x[-1], 1000)
 
         plt.title('N = {}'.format(self.N))
         plt.xlabel('Liters per hour')
