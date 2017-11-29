@@ -81,6 +81,7 @@ class GUI():
         """Calculate the result."""
         my_water = Cold_water(self.N, self.X)
         my_result = my_water.predict()
+        print(my_result)
         self.label4['text'] = str(round(my_result, 2))
         my_water.visualize_function()
 
