@@ -87,7 +87,7 @@ class GUI():
         self.X = 4
         screen_width = master.winfo_screenwidth()
         screen_height = master.winfo_screenheight()
-        app_width = 283
+        app_width = 400 # 283
         app_height = 230
 
         master.title('Витрата води')
@@ -100,8 +100,8 @@ class GUI():
 
         self.label0 = Label(
             master,
-            text='Визначення секундних витрат холодної '\
-                'води\nв залежності від кількості приладів'
+            text='Визначення максимальних секундних витрат \n'\
+                'води в залежності від кількості приладів'
         )
         self.label0.grid(row=0, column=0, columnspan=3)
 
@@ -116,7 +116,7 @@ class GUI():
         self.entry0 = Entry(master, width=6)
         self.entry0.grid(row=2, column=2, padx=8)
 
-        self.label2 = Label(master, text='Середньодобова витрата води, л/добу')
+        self.label2 = Label(master, text='Середньодобова витрата води одним споживачем, л/добу')
         self.label2.grid(row=3, column=0, columnspan=2, sticky=W, padx=5)
 
         sv = StringVar()
@@ -124,7 +124,7 @@ class GUI():
         self.entry1 = Entry(master, width=6, textvariable=sv)
         self.entry1.grid(row=3, column=2, padx=8)
 
-        self.label3 = Label(master, text='Секундна витрата води, л/сек')
+        self.label3 = Label(master, text='Секундна витрата води, л/с')
         self.label3.grid(row=4, column=0, columnspan=2, sticky=W, padx=5)
 
         self.label4 = Label(master, text='...')
