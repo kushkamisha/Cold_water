@@ -13,7 +13,7 @@ base = None
 if sys.platform == "win32":
     base = "Win32GUI"
 
-setup(  name = "Cold Water",
+setup(  name = "Water",
         version = "0.1",
         author = "Kushka Misha",
         description = "Machine learning application to calculate water consumption per second",
