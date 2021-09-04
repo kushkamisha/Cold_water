@@ -143,10 +143,10 @@ class GUI():
 
         # Copyright.
         Label(master,
-              text = "Copyright © 2017, Kushka Misha,"
+              text = "Олександр Кушка © 2021,"
               ).grid(row = 7, column = 0, columnspan = 3, sticky = S)
         Label(master,
-              text = "All Rights Reserved"
+              text = "Усі права захищено"
               ).grid(row = 8, column = 0, columnspan =3, sticky = S)
 
         self.master.bind("<Return>", self.check_input)
